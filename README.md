@@ -1,3 +1,5 @@
+https://github.com/igorpejic/todo_list_django/assets/6241267/d96e69d5-5dcb-4bd6-839b-131efeb7a98c
+
 ## Running using docker-compose
 
 Requirements:
