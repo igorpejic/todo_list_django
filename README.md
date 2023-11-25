@@ -2,7 +2,7 @@
 
 Requirements:
 - [Docker](https://docs.docker.com/engine/install/)
-- [Dcoker compose](https://docs.docker.com/compose/install/)
+- [Docker compose](https://docs.docker.com/compose/install/)
 
 docker-compose up
 
@@ -12,6 +12,8 @@ docker-compose up
 - Python (version as specified in the Dockerfile[docker/Dockerfile])
 - [poetry](https://python-poetry.org/)
 - [PostgreSQL 12](https://www.postgresql.org/download/)
+- [PostGIS](https://postgis.net/)
+- [GoeDjango](https://docs.djangoproject.com/en/dev/ref/contrib/gis/tutorial/#setting-up)
 
 
 ### Python Requirements

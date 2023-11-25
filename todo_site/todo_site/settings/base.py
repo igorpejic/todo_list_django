@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.gis",
+    "cities",
     "todo_app",
     "accounts",
 ]
@@ -84,7 +86,7 @@ DB_PORT = os.getenv("PGPORT", "5432")
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": DB_NAME,
         "USER": DB_USER,
         "PASSWORD": DB_PASSWORD,
@@ -134,3 +136,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# OpenWeather API KEY for fetching weather data
+# https://openweathermap.org/
+OPENWEATHER_ENV_VAR_NAME = "OPENWEATHER_API_KEY"
+OPENWEATHER_API_KEY = os.getenv(OPENWEATHER_ENV_VAR_NAME)
+if not OPENWEATHER_API_KEY:
+    raise EnvironmentError(
+        f"Please set the {OPENWEATHER_ENV_VAR_NAME} value in your environment."
+    )
