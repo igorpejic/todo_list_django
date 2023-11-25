@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from .forms import TodoForm
 from .models import Todo
 from cities.models import City
+from .weather_utils import get_weather_code_and_temp_for_city
 
 
 @login_required
@@ -50,3 +51,14 @@ def get_cities(request):
         City.objects.filter(country_id=country_id).values("id", "name").order_by("name")
     )
     return JsonResponse({"cities": list(cities)})
+
+
+@login_required
+def get_city_temperature(request):
+    city_id = request.GET.get("city_id")
+    city = City.objects.filter(id=city_id).first()
+    if not city:
+        return JsonResponse({}, status=400)
+
+    color_code, temp = get_weather_code_and_temp_for_city(city)
+    return JsonResponse({"color_code": color_code, "temperature": temp})

@@ -146,3 +146,7 @@ if not OPENWEATHER_API_KEY:
     raise EnvironmentError(
         f"Please set the {OPENWEATHER_ENV_VAR_NAME} value in your environment."
     )
+
+
+# Cache
+CACHE_TIMEOUT_SECONDS = 3600

@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<div id='create-task-wrapper'>
   <h2>Create a Todo Task</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Create Todo Task</button>
   </form>
+  <div id='temperature-wrapper'>
+  </div>
   <br/>
   <hr/>
   <a href={%url 'todo-list' %}>Back to all tasks</a>
+</div>
 {% endblock %}
 {% block javascript %}
   {{block.super}}

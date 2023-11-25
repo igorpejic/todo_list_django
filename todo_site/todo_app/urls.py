@@ -11,4 +11,9 @@ urlpatterns = [
         name="todo-toggle-status",
     ),
     path("get_cities/", views.get_cities, name="todo-get-cities"),
+    path(
+        "get_city_temperature/",
+        views.get_city_temperature,
+        name="todo-get-city-temperature",
+    ),
 ]
