@@ -18,6 +18,8 @@
   {% else %}
     <p>No todos finished yet.</p>
   {% endif %}
+  <hr/><br/>
+  <a href={%url 'todo-create'%}>Create new Todo</a>
 {% endblock content %}
 {% block javascript %}
   {{ block.super }}
