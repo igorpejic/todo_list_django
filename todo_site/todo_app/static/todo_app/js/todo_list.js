@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         finishBtn.addEventListener('click', function () {
             var todoId = finishBtn.getAttribute('data-todo-id');
             console.debug("Clicked on: " + todoId)
-            fetch('/toggle_todo_status/' + todoId, {
+            fetch(`/toggle_todo_status/${todoId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     editBtns.forEach(function (editBtn) {
         var todoId = editBtn.getAttribute('data-todo-id');
         editBtn.addEventListener('click', function () {
-            window.location.href = '/create_todo/' + todoId;
+            window.location.href = `/create_todo/${todoId}`;
         });
     });
 });

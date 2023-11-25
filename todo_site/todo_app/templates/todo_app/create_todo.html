@@ -11,3 +11,7 @@
   <hr/>
   <a href={%url 'todo-list' %}>Back to all tasks</a>
 {% endblock %}
+{% block javascript %}
+  {{block.super}}
+  <script src="{% static 'todo_app/js/create_todo.js' %}"></script>
+{% endblock%}

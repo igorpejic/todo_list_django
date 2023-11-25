@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .forms import TodoForm
 from .models import Todo
+from cities.models import City
 
 
 @login_required
@@ -40,3 +41,12 @@ def toggle_todo_status(request, todo_id):
     todo.is_done = not todo.is_done
     todo.save()
     return HttpResponse(status=200)
+
+
+@login_required
+def get_cities(request):
+    country_id = request.GET.get("country_id")
+    cities = (
+        City.objects.filter(country_id=country_id).values("id", "name").order_by("name")
+    )
+    return JsonResponse({"cities": list(cities)})

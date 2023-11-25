@@ -10,4 +10,5 @@ urlpatterns = [
         views.toggle_todo_status,
         name="todo-toggle-status",
     ),
+    path("get_cities/", views.get_cities, name="todo-get-cities"),
 ]
