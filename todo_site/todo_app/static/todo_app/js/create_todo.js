@@ -1,12 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Add a click event handler for the "Finish" button
-    const countrySelect = document.getElementById('id_country');
-    const citySelect = document.getElementById('id_city');
-
-    // Handle country dropdown change event
-    countrySelect.addEventListener('change', function () {
-        const countryId = this.value;
-        // Clear city dropdown
+    function fetchCities(countryId) {
         citySelect.innerHTML = '<option value="">Select a city</option>';
         if (!countryId) {
             return
@@ -25,17 +19,11 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error('Error fetching cities:', error);
             });
-    });
-    citySelect.addEventListener('change', function () {
-        const cityId = this.value;
-        console.debug('city selection changed' + cityId);
-        if (!cityId) {
-            return;
-        }
+    }
+    function fetchCityTemperature(cityId) {
         fetch(`/get_city_temperature?city_id=${cityId}`, { credentials: 'same-origin' })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 document.getElementById('create-task-wrapper').style.backgroundColor = data.color_code;
 
                 const tempWrapper = document.getElementById('temperature-wrapper');
@@ -48,5 +36,27 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error('Error fetching cities:', error);
             });
+
+    }
+    const countrySelect = document.getElementById('id_country');
+    const citySelect = document.getElementById('id_city');
+    const selectedCityId = citySelect.value;
+    if (selectedCityId) {
+        // On initial load and if city is loaded fetch its temperature
+        fetchCityTemperature(selectedCityId)
+    }
+
+    // Handle country dropdown change event
+    countrySelect.addEventListener('change', function () {
+        const countryId = this.value;
+        fetchCities(countryId)
+
+    });
+    citySelect.addEventListener('change', function () {
+        const cityId = this.value;
+        if (!cityId) {
+            return;
+        }
+        fetchCityTemperature(cityId);
     });
 });

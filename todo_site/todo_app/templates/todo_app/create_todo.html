@@ -2,11 +2,10 @@
 {% load static %}
 {% block content %}
 <div id='create-task-wrapper'>
-  <h2>Create a Todo Task</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Todo Task</button>
+    {{ form.as_p }} <br />
+    <button type="submit">Save</button>
   </form>
   <div id='temperature-wrapper'>
   </div>

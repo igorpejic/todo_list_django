@@ -1,5 +1,7 @@
-<div>
+<div style="background-color: {{todo.weather_color}}">
   <h3>{{ todo.title }}</h3>
+  <p>Longitude: {{ todo.longitude}} Latitude: {{todo.latitude}}</p>
+  <p>Temperature: {{ todo.temperature}}</p>
   <button class="edit-btn" data-todo-id="{{ todo.id }}">Edit</button>
   <button class="finish-btn" data-todo-id="{{ todo.id }}">
     {% if todo.is_done %}Re-activate

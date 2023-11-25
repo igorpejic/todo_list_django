@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     editBtns.forEach(function (editBtn) {
         var todoId = editBtn.getAttribute('data-todo-id');
         editBtn.addEventListener('click', function () {
-            window.location.href = `/create_todo/${todoId}`;
+            window.location.href = `/todo/${todoId}/update`;
         });
     });
 });

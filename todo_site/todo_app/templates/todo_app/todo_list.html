@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <h1>Todo</h1>
+  <h1>Unfinished TODOs</h1>
   {% if active_todos %}
     {% for todo in active_todos %}
       {% include 'todo_app/todo_element.html' with todo=todo %}
     {% endfor %}
   {% else %}
     <p>
-      All todos are finished.</p>
+      No unfinished todos.</p>
   {% endif %}
-  <h1>Completed Todos</h1>
+  <h1>Completed TODOs</h1>
   {% if done_todos %}
     {% for todo in done_todos %}
       {% include 'todo_app/todo_element.html' with todo=todo %}

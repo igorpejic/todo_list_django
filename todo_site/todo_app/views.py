@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .forms import TodoForm
 from .models import Todo
@@ -20,17 +20,19 @@ def todo_list(request):
 
 
 @login_required
-def create_todo(request):
-    if request.method == "POST":
-        form = TodoForm(request.POST)
-        if form.is_valid():
-            todo = form.save(commit=False)
-            todo.user = request.user
-            todo.save()
-            return redirect("todo-list")
+def create_or_update_todo(request, todo_id=None):
+    if todo_id:
+        todo = get_object_or_404(Todo, id=todo_id, user=request.user)
+        form = TodoForm(request.POST or None, instance=todo)
     else:
-        form = TodoForm()
+        todo = None
+        form = TodoForm(request.POST or None)
 
+    if request.method == "POST" and form.is_valid():
+        todo = form.save(commit=False)
+        todo.user = request.user
+        todo.save()
+        return redirect("todo-list")
     return render(request, "todo_app/create_todo.html", {"form": form})
 
 

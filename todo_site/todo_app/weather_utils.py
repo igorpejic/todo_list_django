@@ -22,11 +22,15 @@ weather_to_color_mapping = {
 }
 
 
+def get_color_from_weather(weather):
+    return weather_to_color_mapping.get(weather, WHITE)
+
+
 def get_weather_code_and_temp_for_city(city):
     ret = get_weather_data(city.location[0], city.location[1])
     weather, temperature = ret
     return (
-        weather_to_color_mapping.get(weather, WHITE),
+        get_color_from_weather(weather),
         temperature,
     )
 
@@ -51,7 +55,7 @@ def get_weather_data(longitude, latitude):
         temperature = response_data["main"]["temp"]
         weather = response_data["weather"][0]["main"]
     except Exception as e:
-        print(e)
+        logger.exception(f"Fetching openweather API failed. {e}")
         return None, None
 
     ret = (weather, temperature)
