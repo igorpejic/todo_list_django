@@ -1,4 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
-<div>Todo list</div>
-{% endblock %}
+  {% for todo in active_todos %}
+    {% include 'todo_app/todo_element.html' with todo=todo %}
+  {% endfor %}
+  <h1>Completed Todos</h1>
+  {% for todo in done_todos %}
+    {% include 'todo_app/todo_element.html' with todo=todo %}
+  {% endfor %}
+{% endblock content %}
+{% block javascript %}
+  {{ block.super }}
+  <script src="{% static 'todo_app/todo_app.js' %}"></script>
+{% endblock javascript %}

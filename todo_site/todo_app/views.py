@@ -1,11 +1,19 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import TodoForm
+from .models import Todo
 
 
 @login_required
 def todo_list(request):
-    return render(request, "todo_app/todo_list.html")
+    todos = Todo.objects.filter(user=request.user)
+    active_todos = todos.filter(is_done=False)
+    done_todos = todos.filter(is_done=True)
+    return render(
+        request,
+        "todo_app/todo_list.html",
+        {"active_todos": active_todos, "done_todos": done_todos},
+    )
 
 
 @login_required
