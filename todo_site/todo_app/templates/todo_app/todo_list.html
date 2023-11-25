@@ -1,13 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  {% for todo in active_todos %}
-    {% include 'todo_app/todo_element.html' with todo=todo %}
-  {% endfor %}
+  <h1>Todo</h1>
+  {% if active_todos %}
+    {% for todo in active_todos %}
+      {% include 'todo_app/todo_element.html' with todo=todo %}
+    {% endfor %}
+  {% else %}
+    <p>
+      All todos are finished.</p>
+  {% endif %}
   <h1>Completed Todos</h1>
-  {% for todo in done_todos %}
-    {% include 'todo_app/todo_element.html' with todo=todo %}
-  {% endfor %}
+  {% if done_todos %}
+    {% for todo in done_todos %}
+      {% include 'todo_app/todo_element.html' with todo=todo %}
+    {% endfor %}
+  {% else %}
+    <p>No todos finished yet.</p>
+  {% endif %}
 {% endblock content %}
 {% block javascript %}
   {{ block.super }}

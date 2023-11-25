@@ -17,3 +17,6 @@ class Todo(models.Model):
 
     def __repr__(self):
         return f"Todo(title='{self.title}', is_done={self.is_done}, location='{self.location}')"
+
+    class Meta:
+        ordering = ("modified_at",)

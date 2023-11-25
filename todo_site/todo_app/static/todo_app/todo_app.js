@@ -1,43 +1,35 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const csrftoken = getCookie('csrftoken');
     // Add a click event handler for the "Finish" button
     var finishBtns = document.querySelectorAll('.finish-btn');
     finishBtns.forEach(function (finishBtn) {
         finishBtn.addEventListener('click', function () {
             var todoId = finishBtn.getAttribute('data-todo-id');
             console.debug("Clicked on: " + todoId)
-            fetch('/change_todo_status/', {
+            fetch('/toggle_todo_status/' + todoId, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
                 },
-                body: JSON.stringify({
-                    todo_id: todoId,
-                    status: 'finished',
-                }),
+                credentials: 'same-origin'
             })
-                .then(function (response) {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(function (data) {
-                    // TODO: change status
-                    alert('Todo status changed to finished');
+                .then(function () {
+                    location.reload();
                 })
                 .catch(function (error) {
-                    // Handle any errors that occur during the API request
+                    // Handle any errors that occur during the API request, for now we just log.
                     console.error('Error:', error);
                 });
         });
+    });
 
-        // Add a click event handler for the "Edit" button
-        var editBtns = document.querySelectorAll('.edit-btn');
-        editBtns.forEach(function (editBtn) {
-            var todoId = finishBtn.getAttribute('data-todo-id');
-            editBtn.addEventListener('click', function () {
-                window.location.href = '/create_todo/' + todoId;
-            });
+    // Add a click event handler for the "Edit" button
+    var editBtns = document.querySelectorAll('.edit-btn');
+    editBtns.forEach(function (editBtn) {
+        var todoId = editBtn.getAttribute('data-todo-id');
+        editBtn.addEventListener('click', function () {
+            window.location.href = '/create_todo/' + todoId;
         });
-    })
+    });
 });

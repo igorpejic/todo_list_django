@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .forms import TodoForm
 from .models import Todo
 
@@ -29,3 +30,13 @@ def create_todo(request):
         form = TodoForm()
 
     return render(request, "todo_app/create_todo.html", {"form": form})
+
+
+@login_required
+def toggle_todo_status(request, todo_id):
+    todo = Todo.objects.filter(user=request.user, id=todo_id).first()
+    if not todo:
+        return HttpResponse(status=400)
+    todo.is_done = not todo.is_done
+    todo.save()
+    return HttpResponse(status=200)
