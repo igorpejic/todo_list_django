@@ -8,6 +8,7 @@ from django.core.management import call_command
 
 
 def run_cities_import(apps, schema_editor):
+    call_command("cities", **{"import": "country"})
     call_command("cities", **{"import": "city"})
 
 
