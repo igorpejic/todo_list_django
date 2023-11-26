@@ -26,7 +26,7 @@ On the next docker compose up, this will be much faster as the migration has bee
 - [poetry](https://python-poetry.org/)
 - [PostgreSQL 12](https://www.postgresql.org/download/)
 - [PostGIS](https://postgis.net/)
-- [GoeDjango](https://docs.djangoproject.com/en/dev/ref/contrib/gis/tutorial/#setting-up)
+- [GeoDjango](https://docs.djangoproject.com/en/dev/ref/contrib/gis/tutorial/#setting-up)
 
 
 ### Python Requirements
@@ -40,3 +40,8 @@ Enter a virtual environment with the dependencies available:
 ```
     $ poetry shell
 ```
+
+
+### Further improvements
+
+- [ ] Replace local Django in-memory cache with Redis
