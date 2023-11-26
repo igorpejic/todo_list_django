@@ -13,19 +13,26 @@ services:
       - "8002:5432"
     networks:
       - djangonetwork
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U todoappuser -d todoapp'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
 
   web:
     build: 
       dockerfile: docker/Dockerfile
     command: >
-      sh -c " python manage.py migrate;
-             python manage.py runserver 0.0.0.0:8080"
+      sh -c "
+      python manage.py migrate;
+      python manage.py runserver 0.0.0.0:8080"
     volumes:
       - .:/todo_site
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     links:
       - db:db
     networks:
